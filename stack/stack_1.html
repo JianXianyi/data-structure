@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stack-01</title>
+</head>
+<body>
+     <script>
+         function Stack(){
+             //栈的属性 
+            this.items=[]
+            //栈的操作 基于数组
+         }
+         Stack.prototype={
+             push:function(elem){
+                this.items.push(elem);
+             },
+             pop:function(){
+                return this.items.pop();
+             },
+             peek:function(){
+                 return this.items[this.items.length-1];
+             },
+             isEmpty:function(){
+                 return this.items.length == 0?true:false;
+             },
+             size:function(){
+                 return this.items.length;
+             },
+             toString:function(){
+                 var resultStr='';
+                 for(let i=0;i<this.items.length;i++){
+                     resultStr+=this.items[i]+' '
+                 }
+                 return resultStr;
+             }
+         }
+         let stack_1=new Stack();
+         stack_1.push(22);
+         stack_1.push(39);
+         stack_1.push(34);
+         stack_1.push(12);
+         stack_1.pop();
+         stack_1.pop();
+        //  stack_1.pop();
+        //  stack_1.pop();
+
+         
+         console.log(stack_1.peek());
+         console.log(stack_1.isEmpty());
+         console.log(stack_1.size());
+         console.log(stack_1.toString());
+
+        console.log(stack_1);
+     </script>
+</body>
+</html>
