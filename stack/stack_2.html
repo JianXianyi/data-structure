@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>decNumber to BinNumber</title>
+</head>
+
+<body>
+    <script>
+        function Stack() {
+            //栈的属性 
+            this.items = []
+            //栈的操作 基于数组
+        }
+        Stack.prototype = {
+            push: function (elem) {
+                this.items.push(elem);
+            },
+            pop: function () {
+                return this.items.pop();
+            },
+            peek: function () {
+                return this.items[this.items.length - 1];
+            },
+            isEmpty: function () {
+                return this.items.length == 0 ? true : false;
+            },
+            size: function () {
+                return this.items.length;
+            },
+            toString: function () {
+                var resultStr = '';
+                for (let i = 0; i < this.items.length; i++) {
+                    resultStr += this.items[i] + ' '
+                }
+                return resultStr;
+            }
+        }
+
+
+        function decToBin(decNumber) {
+            let stack = new Stack();
+            while (decNumber > 0) {
+                stack.push(decNumber % 2);
+                decNumber = Math.floor(decNumber / 2);
+            }
+
+            var binaryStr = '';
+            while (!stack.isEmpty()) {
+                binaryStr += stack.pop();
+            }
+            return binaryStr;
+        }
+
+        console.log(decToBin(100));
+        console.log(decToBin(120));
+        console.log(decToBin(200));
+
+
+    </script>
+</body>
+
+</html>
