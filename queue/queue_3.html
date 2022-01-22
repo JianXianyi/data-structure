@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>priorQueue</title>
+</head>
+
+<body>
+    <script>
+        function PriorQueue() {
+            this.items = [];
+            //内部类
+            function QueueElement(elem, priorty) {
+                this.element = elem;
+                this.priorty = priorty;
+            }
+            PriorQueue.prototype.enqueue=function (elem, priorty) {
+                var element = new QueueElement(elem, priorty);
+                //判断队列是否为空
+                if (this.items.length == 0) {
+                    this.items.push(element);
+                } else {
+                    var added=false;
+                    for (var i = 0; i < this.items.length; i++) {
+                        if (element.priorty < this.items[i].priorty) {
+                            this.items.splice(i, 0, element);
+                            added=true;
+                            break;
+                        }
+                    }
+                    if(!added){
+                        this.items.push(element);
+                    }
+                }
+            }
+
+        }
+        PriorQueue.prototype = {
+           dequeue: function () {
+                return this.items.shift();
+            },
+            front: function () {
+                return this.items[0];
+            },
+            isEmpty: function () {
+                return this.items.length == 0 ? true : false;
+            },
+            size: function () {
+                return this.items.length;
+            },
+            toString: function () {
+                let resultStr = '';
+                for (let i = 0; i < this.items.length; i++) {
+                    resultStr += this.items[i] + ' ';
+                }
+                return resultStr;
+            }
+        }
+        PriorQueue.prototype.constructor = PriorQueue;
+        var pq = new PriorQueue();
+        pq.enqueue('wqeqw',111);
+        pq.enqueue('dssd',120);
+        pq.enqueue('sddsdsa',121);
+        pq.enqueue('dieide',98);
+        console.log(pq);
+    </script>
+</body>
+
+</html>
