@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>击鼓传花</title>
+</head>
+
+<body>
+    <script>
+        function Queue() {
+            this.items = [];
+        }
+        Queue.prototype = {
+            enqueue: function (elem) {
+                this.items.push(elem);
+            },
+            dequeue: function () {
+                return this.items.shift();
+            },
+            front: function () {
+                return this.items[0];
+            },
+            isEmpty: function () {
+                return this.items.length == 0 ? true : false;
+            },
+            size: function () {
+                return this.items.length;
+            },
+            toString: function () {
+                let resultStr = '';
+                for (let i = 0; i < this.items.length; i++) {
+                    resultStr += this.items[i] + ' ';
+                }
+                return resultStr;
+            }
+        }
+        Queue.prototype.constructor = Queue;
+
+        //面试题：击鼓传花
+        function passGame(nameList, num) {
+            var queue_1 = new Queue();
+            for (var i = 0; i < nameList.length; i++) {
+                queue_1.enqueue(nameList[i]);
+            }
+            //开始数数
+            while (queue_1.size() > 1) {
+                for (var i = 0; i < num - 1; i++) {
+                    //把num前的一个放到队列末尾并删除队首的元素
+                    queue_1.enqueue(queue_1.dequeue());
+                }
+                // 删除数到Num个人
+                queue_1.dequeue();
+            }
+            alert(queue_1.size());
+            var winner=queue_1.front();
+            alert(winner);
+        }
+
+        passGame(['lily','lucy','mike','xiaoli','coco'],4)
+    </script>
+</body>
+
+</html>
