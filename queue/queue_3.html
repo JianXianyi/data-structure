@@ -54,7 +54,7 @@
             toString: function () {
                 let resultStr = '';
                 for (let i = 0; i < this.items.length; i++) {
-                    resultStr += this.items[i] + ' ';
+                    resultStr += this.items[i].element + ' '+this.items[i].priorty + ' ';
                 }
                 return resultStr;
             }
