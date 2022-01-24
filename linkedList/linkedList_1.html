@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>double linkedList</title>
+</head>
+
+<body>
+    <script src="doublyLinkedList.js"></script>
+    <script>
+        var newList = new DoublyLinkedList();
+        newList.append('123');
+        newList.append('222');
+        newList.append('333');
+        newList.insert(1, '444');
+        newList.insert(4, '455');
+        newList.update(1, '999');
+        console.log(newList.remove('455')) ;
+        // console.log(newList.removeAt(4));
+        // newList.removeAt(0);
+
+        // newList.removeAt(3);
+        // newList.removeAt(3);
+        // newList.removeAt(1);
+
+        // newList.removeAt(4);
+        // newList.removeAt(3);
+        // newList.removeAt(2);
+        // newList.removeAt(3);
+
+
+        console.log(newList.toString());
+        console.log(newList.backwordString());
+        console.log(newList.forwardString());
+        console.log(newList.get(3))
+        console.log(newList.indexOf('222'));
+        console.log(newList.indexOf(1212));
+
+        console.log(newList.size());
+        console.log(newList.isEmpty());
+    </script>
+</body>
+
+</html>
