@@ -230,6 +230,12 @@ DoublyLinkedList.prototype = {
             current = current.next;
         }
         return result;
+    },
+    gethead(){
+        return this.head.data;
+    },
+    gettail(){
+        return this.tail.data;
     }
 }
 DoublyLinkedList.prototype.constructor = DoublyLinkedList;
