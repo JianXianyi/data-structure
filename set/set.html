@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>set</title>
+</head>
+<body>
+    <script src="set.js"></script>
+    <script>
+        var set=new Set();
+        set.add('cba');
+        set.add('bac');
+        set.add('abc');
+        set.add('bbb');
+
+        var set2=new Set();
+        set2.add('abc');
+        set2.add('bbb');
+        set2.add('xxx');
+        set2.add('ccc');
+        set2.add('fff');
+
+        console.log(set.union(set2).values());
+        console.log(set.intersection(set2).values());
+        console.log(set.subsection(set2).values());
+        console.log(set.subset(set2));
+
+
+
+
+
+        // set.add(11);
+        // set.add(22);
+        // set.add(23);
+        // set.add(34);
+        // set.add(13);
+
+        // set.remove(34);
+        // console.log(set);
+        // console.log(set.size());
+        // console.log(set.has(22));
+        // console.log(set.add(11));
+    </script>
+</body>
+</html>
