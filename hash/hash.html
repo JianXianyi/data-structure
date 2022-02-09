@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hashTable</title>
+</head>
+
+<body>
+    <script>
+        //design hash function
+        //transfer string to number:hash code
+        //large hash code to small hash code ,arr length
+
+        // alert(hashFunc('abc',7));//4
+        // alert(hashFunc('cba',7));//3
+        // alert(hashFunc('nba',7));//5
+        //判断质数
+        function isPrime(num) {
+            let temp=parseInt(Math.sqrt(num))
+            for (let i = 2; i <= temp; i++) {
+                if (num % i == 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function transNum(num){
+            if(isPrime(num)){
+                return num;
+            }else{
+                return transNum(num+1);
+            }
+        }
+        
+    // console.log(transNum(14));
+        function HashTable() {
+            this.storage = [];
+            this.count = 0;
+            this.limit = 8;
+        }
+        HashTable.prototype = {
+            constructor: HashTable,
+            hashFunc(str, size) {
+                //定义hash code变量
+                var hashCode = 0;
+                //通过霍纳算法计算hash code ==cats
+                for (var i = 0; i < str.length; i++) {
+                    hashCode = 37 * hashCode + str.charCodeAt(i);
+                }
+                //3.取余操作
+                var index = hashCode % size;
+                return index;
+            },
+            put(key, value) {
+                //根据key获取index
+                let index = this.hashFunc(key, this.limit);
+                //2.根据index去除对应的bucket
+                let bucket = this.storage[index];
+                //判断该bucket是否为空
+                if (bucket == null) {
+                    bucket = [];
+                    this.storage[index] = bucket
+                }
+                //判断是否为修改数据
+                for (let i = 0; i < bucket.length; i++) {
+                    let tuple = bucket[i];
+                    if (tuple[0] == key) {
+                        tuple[1] = value;
+                        return
+                    }
+                }
+                //进行添加操作
+                bucket.push([key, value]);
+                this.count += 1;
+
+                //判断装载因子是否大于0.75
+                if (this.count > this.limit * 0.75) {
+                    this.resize(transNum(this.limit * 2))
+                }
+            },
+            get(key) {
+                //根据key获取index
+                let index = this.hashFunc(key, this.limit);
+
+                let bucket = this.storage[index];
+
+                if (bucket == null) {
+                    return null;
+                } else {
+                    //线性查找bucket中的每一个key是否
+                    for (let i = 0; i < bucket.length; i++) {
+                        let tuple = bucket[i];
+                        if (tuple[0] == key) {
+                            return tuple[1];
+                        }
+                    }
+                    return null;
+                }
+            },
+            remove(key) {
+                //根据key获取index
+                let index = this.hashFunc(key, this.limit);
+                let bucket = this.storage[index];
+
+                if (bucket == null) {
+                    return null;
+                } else {
+                    //线性查找bucket中的每一个key是否
+                    for (let i = 0; i < bucket.length; i++) {
+                        let tuple = bucket[i];
+                        if (tuple[0] == key) {
+                            bucket.splice(i, 1);
+                            this.count -= 1;
+                            if (this.limit > 8 && this.count < this.limit * 0.25) {
+                                this.resize(transNum(Math.floor(this.limit / 2)));
+                            }
+                            return tuple[1];
+                        }
+                    }
+                    return null;
+                }
+            },
+            isEmpty() {
+                return this.count == 0
+            },
+            size() {
+                return this.count
+            },
+            resize(newLimit) {
+                let oldStorage = this.storage;
+
+                //重置属性
+                this.storage = [];
+                this.count = 0;
+                this.limit = newLimit;
+
+                //遍历oldStorage的所有bucket
+                for (let i = 0; i < oldStorage.length; i++) {
+                    let bucket = oldStorage[i];
+                    if (bucket == null) {
+                        continue
+                    }
+                    for (let j = 0; j < bucket.length; j++) {
+                        let tuple = bucket[j];
+                        this.put(tuple[0], tuple[1]);
+                    }
+                }
+            }
+        }
+
+        // let hash_01=new HashTable();
+        // hash_01.put('abc',123);
+        // hash_01.put('cba',234);
+        // hash_01.put('nba',111);
+        // hash_01.put('def',222);
+
+        // console.log(hash_01.get('cba'));
+        // console.log(hash_01.get('nba'));
+        // console.log(hash_01.get('def'));
+
+        // hash_01.put('cba',999);
+        // console.log(hash_01.get('cba'));
+
+        // hash_01.remove('nba');
+        // console.log(hash_01.get('nba'))
+
+
+
+    </script>
+</body>
+
+</html>
