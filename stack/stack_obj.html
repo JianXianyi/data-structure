@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Stack</title>
+</head>
+
+<body>
+    <script>
+        class Stack {
+            constructor() {
+                this.items = {};
+                this.count = 0;
+            }
+            push(element) {
+                this.items[this.count] = element;
+                this.count++;
+            }
+            isEmpty() {
+                return this.count === 0
+            }
+            size() {
+                return this.count
+            }
+            pop() {
+                if (this.count == 0) {
+                    return undefined;
+                }
+                this.count--;
+                let res = this.items[this.count];
+                delete this.items[this.count];
+                return res;
+            }
+            peek() {
+                if (this.isEmpty()) {
+                    return undefined;
+                }
+                return this.items[this.count - 1]
+            }
+            clear() {
+                this.items = {};
+                this.count = 0;
+            }
+            toString(){
+                if(this.isEmpty()){
+                    return ' '
+                }
+                let res=''
+                for(let index in this.items){
+                    res += `${index} : ${this.items[index]}`
+                }
+                return res
+            }
+        }
+        const stack = new Stack();
+        stack.push('yes');
+        stack.push('ok');
+        stack.push('nine');
+        console.log(stack);
+        console.log(stack.size());
+        console.log(stack.isEmpty());
+        stack.pop();
+        stack.pop();
+        console.log(stack);
+        console.log(stack.toString())
+
+        
+    </script>
+</body>
+
+</html>

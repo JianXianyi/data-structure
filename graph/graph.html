@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph</title>
+</head>
+
+<body>
+    <script>
+        function Queue() {
+            this.items = [];
+        }
+        Queue.prototype = {
+            enqueue: function (elem) {
+                this.items.push(elem);
+            },
+            dequeue: function () {
+                return this.items.shift();
+            },
+            front: function () {
+                return this.items[0];
+            },
+            isEmpty: function () {
+                return this.items.length == 0 ? true : false;
+            },
+            size: function () {
+                return this.items.length;
+            },
+            toString: function () {
+                let resultStr = '';
+                for (let i = 0; i < this.items.length; i++) {
+                    resultStr += this.items[i] + ' ';
+                }
+                return resultStr;
+            }
+        }
+        Queue.prototype.constructor = Queue;
+        function Graph() {
+            //属性 顶点 边
+            this.vertexes = [];
+            this.edges = new Map();
+            //方法
+        }
+        Graph.prototype = {
+            constructor: Graph,
+            addVertexts(v) {
+                this.vertexes.push(v);
+                this.edges.set(v, []);
+            },
+            addEdges(v1, v2) {
+                //有向图只有一条边
+                this.edges.get(v1).push(v2);
+                this.edges.get(v2).push(v1);
+            },
+            toString() {
+                let res = '';
+                for (let item in this.vertexes) {
+                    let list = this.edges.get(this.vertexes[item])
+                    let list_1 = '';
+                    for (let value in list) {
+                        list_1 += `${list[value]}`
+                        if (value != list.length - 1) {
+                            list_1 += ','
+                        }
+                    }
+                    res += `${this.vertexes[item]}=>[${list_1}]` + '\n'
+                }
+                return res
+            },
+            initializeColor() {
+                let colors = [];
+                for (let i = 0; i < this.vertexes.length; i++) {
+                    colors[this.vertexes[i]] = 'white'
+                }
+                return colors;
+            },
+            bfs(initV, handler) {
+                //1.初始化颜色
+                let color = this.initializeColor();
+                //2.创建队列
+                let queue = new Queue();
+                //3.将顶点加入队列
+                queue.enqueue(initV);
+                //4.循环队列从中取出元素
+                while (!queue.isEmpty()) {
+                    //4.1从队列中取出顶点
+                    let v = queue.dequeue();
+                    //4.2获取与顶点相连的其他顶点
+                    let vList = this.edges.get(v);
+                    //4.3将v的颜色设置成灰色
+                    color[v] = "grey";
+                    //4.4 遍历所有的顶点加入到队列中
+                    for (let i in vList) {
+                        let e = vList[i];
+                        if (color[e] == "white") {
+                            color[e] = "grey";
+                            queue.enqueue(e)
+                        }
+                    }
+                    //4.5v顶点被探测 访问顶点
+                    handler(v);
+                    color[v] = "black"
+                }
+
+            },
+            dfs(initV,handler){
+                let colors=this.initializeColor();
+                //2.依次递归
+                this.dfsVisit(initV,colors,handler)
+            },
+            dfsVisit(v,colors,handler){
+                //1.先将颜色设置为灰色
+                colors[v]="grey";
+                //2.处理v
+                handler(v);
+                //访问其他相邻顶点
+                let vList=this.edges.get(v)
+                for(let i in vList){
+                    let e=vList[i];
+                    if(colors[e]=="white"){
+                        this.dfsVisit(e,colors,handler)
+                    }
+                }
+                //设置为黑色
+                colors[v]="black"
+            }
+        }
+
+        const graph = new Graph();
+        let myVertexes = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+        for (let i in myVertexes) {
+            graph.addVertexts(myVertexes[i])
+        }
+
+        graph.addEdges('A', 'B');
+        graph.addEdges('A', 'C');
+        graph.addEdges('A', 'D');
+        graph.addEdges('C', 'D');
+        graph.addEdges('C', 'G');
+        graph.addEdges('D', 'G');
+        graph.addEdges('D', 'H');
+        graph.addEdges('B', 'E');
+        graph.addEdges('B', 'F');
+        graph.addEdges('E', 'I');
+
+        //测试BFS
+        let result = '';
+        graph.bfs(graph.vertexes[0], function (v) {
+            result += v + ' '
+        })
+        result="";
+        graph.dfs(graph.vertexes[0],function(v){
+            result+=v+' '
+        })
+        alert(result)
+
+        // const G = new Graph();
+        // G.addVertexts('A');
+        // G.addVertexts('B');
+        // G.addVertexts('C');
+        // G.addVertexts('D');
+        // G.addEdges('A', 'B');
+        // G.addEdges('A', 'C');
+        // G.addEdges('B', 'D');
+
+        // console.log(G)
+        // alert(G)
+    </script>
+</body>
+
+</html>

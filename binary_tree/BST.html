@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BinarySearchTree</title>
+</head>
+
+<body>
+    <script src="./binaryTree.js"></script>
+    <script>
+        let newTree = new BinaryTree();
+        newTree.insert(11);
+        newTree.insert(7);
+        newTree.insert(5);
+        newTree.insert(3);
+        newTree.insert(6);
+        newTree.insert(9);
+        newTree.insert(8);
+        newTree.insert(10);
+        newTree.insert(15);
+        newTree.insert(13);
+        newTree.insert(12);
+        newTree.insert(14);
+        newTree.insert(20);
+        newTree.insert(18);
+        newTree.insert(25);
+
+
+
+
+
+        // console.log(newTree);
+        let res = '';
+        // newTree.preOrderTraversal(function (key) {
+        //     res += key+' ';
+        // })
+        // console.log(res);
+        // res=''
+        // newTree.inOrderTraversal(function(key){
+        //     res += key+' ';
+        // })
+        // console.log(res)
+        // res=''
+        // newTree.postOrderTraversal(function(key){
+        //     res += key+' ';
+        // })
+        // console.log(res)
+        // console.log(newTree.max());
+        // console.log(newTree.min());
+        // console.log(newTree.search(6));
+        // console.log(newTree.search(88));
+        // console.log(newTree.search(9));
+        newTree.remove(9);
+        newTree.remove(7);
+        newTree.remove(15);
+        // newTree.remove(5);
+        
+        // console.log(res)
+        res=''
+        newTree.postOrderTraversal(function(key){
+            res += key+' ';
+        })
+        console.log(res)
+
+    </script>
+</body>
+
+</html>

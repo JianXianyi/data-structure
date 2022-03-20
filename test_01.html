@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function run(n) {
+            /* 请在此处答题 */
+            let sum=function(arr){
+                let sum=0
+                for(let i=1;i<arr.length;i++){
+                    sum+=arr[i]
+                }
+                return sum
+            }
+            let arr1 = [0];
+            let arr2 = [0];
+            for (let i = 1; i <= n; i++) {
+                if (i % 2 == 0) {
+                    arr1.push(i)
+                } else {
+                    arr2.push(i)
+                }
+            }
+            arr1 = arr1.map((item, index) => {
+                // console.log(item)
+                if (index % 2 == 0) {
+                    console.log(Math.pow(item >> 4, 2));
+                    return (Math.pow(item >> 4, 2))
+                } else {
+                    return parseInt(Math.sqrt(item))
+                }
+            })
+            arr2 = arr2.map((item, index) => {
+                
+                // console.log(item)
+                if (index % 2 == 0) {
+                    return (Math.cbrt(item << 3))
+                } else {
+                    return 2 * item
+                }
+            })
+            // console.log(arr1,arr2)
+            let res=sum(arr1)-sum(arr2)
+            res=Math.floor(Math.abs(res))
+            return res
+            // console.log(res)
+        }
+        run(4)
+    </script>
+</body>
+
+</html>
